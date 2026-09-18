@@ -1,0 +1,4 @@
+input_root: /path/to/local/input
+output_root: /path/to/local/output
+
+# This file is illustrative. Do not commit data paths or credentials.
