@@ -1,0 +1,5 @@
+dataset,variant,stage,trainer,epochs,fold_count,case_count,channels,fold_mean_dice,case_mean_dice,case_median_dice,min_case_dice,max_case_dice,empty_predictions,dice_lt_0_8,dice_lt_0_5
+Dataset103,direct_k4,reference_comparison,nnUNetTrainer,5,5,64,5,0.952053,0.952008,0.961213,0.850298,0.981930,0,0,0
+Dataset104,controlled_k5,controlled_comparison,nnUNetTrainer,5,5,64,6,0.938890,0.938955,0.954818,0.804697,0.980014,0,0,0
+Dataset105,controlled_k3,controlled_comparison,nnUNetTrainer,5,5,64,4,0.949043,0.949086,0.957588,0.855819,0.981868,0,0,0
+
