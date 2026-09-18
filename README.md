@@ -1,100 +1,116 @@
-﻿# Organoid MRI Segmentation with nnU-Net
+# Organoid MRI Segmentation with GMM Priors and nnU-Net
 
-A data-free, engineering-focused implementation of an MRI segmentation workflow for small biological samples. The project connects MRI preparation, GMM-derived probability priors, label and geometry quality control, nnU-Net dataset construction, and prediction review.
+This repository contains a public-safe extraction of an MRI segmentation workflow developed around GRE/N4 preparation, GMM-derived probability priors, explicit geometry and label QC, and nnU-Net v2 dataset integration. Raw research volumes, masks, model files, logs, private paths, and case-level identifiers are excluded.
 
-No research volumes, masks, model weights, private identifiers, or internal infrastructure are distributed. The three QC panels in `docs/assets/project_qc/` are curated derived figures from one representative project case; case-specific header/footer text has been removed so the panels can illustrate the workflow without exposing project identifiers.
+[Architecture](docs/architecture.md) · [Workflow](docs/workflow.md) · [GMM experiments](docs/gmm-experiments.md) · [nnU-Net experiments](docs/nnunet-experiments.md) · [Results](docs/results.md) · [Data policy](docs/data-policy.md)
 
-## Workflow
+![Prediction and reference review](docs/assets/results/nnunet_prediction_reference_overlay.png)
 
-```mermaid
+## At a glance
+
+| Area | Implementation |
+| --- | --- |
+| MRI | MGE/GRE-derived MRI with NIfTI spatial metadata |
+| Preprocessing | GRE/N4 input contract, z-score, min-max, optional NLM |
+| Probabilistic priors | GMM K3/K4/K5/K10 experiments |
+| Segmentation | Binary organoid target with nnU-Net v2 integration helpers |
+| Controlled comparison | Direct K4 reference with controlled K3 and K5 branches |
+| Evaluation | Five-fold, 5-epoch CPU development comparisons plus qualitative QC |
+
+## Project workflow
+
+~~~mermaid
 flowchart LR
-    A[MRI / MGE input] --> B[N4-corrected and normalized image]
-    B --> C[Optional NLM denoising]
-    C --> D[Support mask]
-    D --> E[GMM posterior channels]
-    E --> F[Label and geometry QC]
-    F --> G[nnU-Net channel/export plan]
-    G --> H[nnU-Net v2 external execution]
-    H --> I[Prediction/reference QC]
-```
+    A[MGE or GRE MRI] --> B[GRE/N4 preparation]
+    B --> C[Z-score and min-max normalization]
+    C --> D{Optional NLM branch}
+    D --> E[Support mask]
+    E --> F[GMM posterior priors]
+    F --> G[Shape, spacing, affine and label QC]
+    G --> H[nnU-Net dataset contract]
+    H --> I[nnU-Net external planning and training]
+    I --> J[Prediction, reference and volume QC]
+~~~
 
-The public implementation focuses on the engineering contracts around the model workflow. nnU-Net itself remains an external dependency; this repository does not copy the nnU-Net framework.
+The public code keeps pure array computation separate from filesystem integration. Paths are supplied by the caller, and nnU-Net remains an external runtime.
 
-## Curated project evidence
+## Experiment evolution
 
-The images below follow the same representative sample through real project QC outputs. They are presentation figures, not a distributed dataset.
+~~~mermaid
+flowchart TD
+    A[Dataset101: K10-to-K4 soft-prior baseline] --> B[Dataset102: sigma-rule corrected K10-to-K4 priors]
+    B --> C[Dataset103: direct K4 reference comparison]
+    C --> D[Dataset104: controlled K5 comparison]
+    C --> E[Dataset105: controlled K3 comparison]
+    F[K10 exploratory GMM analysis] -. separate from nnU-Net training .-> C
+~~~
 
-### MRI preparation
+The documented evaluation numbers are explicitly 5-epoch CPU development comparisons from the recorded project runs. They are not final model performance or an external benchmark.
 
-![Preprocessing QC](docs/assets/project_qc/01_preprocessing_qc.png)
+## MRI preprocessing
 
-The panel compares N4-standardized and Non-Local-Means-denoised views and their intensity distributions. The implementation preserves the project order of optional denoising, nonzero z-score normalization, and min-max scaling for downstream modeling.
+The input branch uses a GRE/N4 representation, then applies the project’s normalization order and optional denoising branch.
 
-### GMM probability modeling
+![Raw MRI input](docs/assets/preprocessing/raw_mri_input.png)
 
-![K=5 GMM QC](docs/assets/project_qc/02_gmm_k5_qc.png)
+![Preprocessing overview](docs/assets/preprocessing/preprocessing_overview.png)
 
-The K=5 panel shows multi-view input, hard component labels, an overlay, and posterior-derived maps. Component indices are ordered by mean intensity; biological interpretation is deliberately left to QC and domain review.
+The implementation is centered in [normalization.py](src/mri_segmentation/preprocessing/normalization.py), [denoise.py](src/mri_segmentation/preprocessing/denoise.py), and [pipeline.py](src/mri_segmentation/preprocessing/pipeline.py).
 
-### Exploratory finer decomposition
+## GMM probabilistic modeling
 
-![K=10 GMM QC](docs/assets/project_qc/03_gmm_k10_qc.png)
+The four-way QC comparison keeps the experiment roles separate: K3 is coarser, K4 is the direct reference, K5 is a controlled finer comparison, and K10 is exploratory.
 
-The K=10 panel shows how the same intensity field can be subdivided into more posterior channels. It is an exploratory decomposition, not an automatically validated anatomical labeling.
+![GMM comparison](docs/assets/gmm/gmm_k3_k4_k5_k10_comparison.png)
 
-## What is implemented
+See [fit.py](src/mri_segmentation/gmm/fit.py), [support.py](src/mri_segmentation/gmm/support.py), and [GMM experiments](docs/gmm-experiments.md).
 
-- NIfTI loading/saving with explicit spatial metadata.
-- Foreground-aware z-score and min-max normalization plus optional 3D Non-Local-Means denoising.
-- Support-mask construction, deterministic 1D GMM fitting, stable posterior-channel ordering, probability-volume reconstruction, and hard-label reconstruction.
-- Explicit label inspection and caller-selected binary transforms.
-- Shape, spacing, origin, direction, and affine compatibility checks without silent resampling.
-- nnU-Net v2 dataset case contracts, five-channel export planning, dataset metadata generation, command planning for preprocessing/training/prediction, and prediction/reference QC metrics.
-- A small in-memory CLI demo that exercises the preprocessing and GMM path without research data.
+## From GMM priors to nnU-Net
 
-## nnU-Net integration
+The selected channel panels show how the MRI channel and posterior-prior channels enter the three controlled dataset variants.
 
-The `mri_segmentation.nnunet` package represents the project-specific integration layer around nnU-Net v2:
+![GMM prior channel comparison](docs/assets/nnunet/gmm_prior_channel_comparison.png)
 
-- `channels.py` defines the documented normalized-MRI plus GMM-prior channel contract.
-- `dataset.py` plans `imagesTr/` and `labelsTr/` names and creates `dataset.json` metadata without copying files.
-- `commands.py` builds reviewable `nnUNetv2_plan_and_preprocess`, `nnUNetv2_train`, and `nnUNetv2_predict` commands.
-- `qc.py` provides binary prediction/reference metrics used by the project’s result-review workflow.
+The public integration layer is described in [channels.py](src/mri_segmentation/nnunet/channels.py), [dataset.py](src/mri_segmentation/nnunet/dataset.py), and [commands.py](src/mri_segmentation/nnunet/commands.py).
 
-These helpers intentionally do not execute training or inference and do not include private dataset IDs, server paths, or research files.
+## Recorded development comparisons
 
-## Repository layout
+| Dataset | Stage | GMM strategy | Channels | Training status |
+| --- | --- | --- | ---: | --- |
+| Dataset101 | Baseline | K10-to-K4 soft priors | 5 | Dataset preparation baseline |
+| Dataset102 | Corrected-prior prototype | K10-to-K4 sigma-rule priors | 5 | 5-epoch CPU prototype |
+| Dataset103 | Reference comparison | Direct K4 | 5 | 5-epoch CPU prototype |
+| Dataset104 | Controlled comparison | K5 | 6 | 5-epoch CPU prototype |
+| Dataset105 | Controlled comparison | K3 | 4 | 5-epoch CPU prototype |
 
-```text
-configs/                  Data-free example configuration
-src/mri_segmentation/     Reusable implementation
-  data/                   Caller-scoped discovery and inventory
-  geometry/               Image/mask compatibility checks
-  gmm/                    Support masks, fitting, posteriors, volumes
-  io/                     NIfTI helpers
-  labels/                 Label inspection and explicit transforms
-  nnunet/                 Dataset/channel/command/QC integration
-  preprocessing/          Normalization, denoising, pipeline order
-  qc/                     Array-level overlays and preflight checks
-docs/                     Architecture, workflow, data policy, curated QC
-```
+![Fold comparison](docs/assets/results/nnunet_fold_comparison.png)
 
-## Quick start
+See [nnU-Net experiments](docs/nnunet-experiments.md) and [Results](docs/results.md) for context, aggregate values, and limitations.
 
-```bash
-python -m venv .venv
-python -m pip install -e .
-python -m mri_segmentation demo --components 4
-```
+## Engineering implementation
 
-The demo creates a synthetic volume in memory and prints a compact JSON summary. It does not read or write MRI data.
+- [NIfTI I/O](src/mri_segmentation/io/nifti.py) keeps spatial metadata explicit.
+- [Preprocessing](src/mri_segmentation/preprocessing/) implements normalization, optional NLM, and pipeline ordering.
+- [GMM modeling](src/mri_segmentation/gmm/) stabilizes component ordering and reconstructs posterior volumes.
+- [Label inspection](src/mri_segmentation/labels/) keeps label transformations explicit.
+- [Geometry checks](src/mri_segmentation/geometry/compatibility.py) reject silent shape or affine mismatches.
+- [QC utilities](src/mri_segmentation/qc/) provide array-level overlays and preflight checks.
+- [Reporting](src/mri_segmentation/reporting/metrics.py) provides small aggregate metric summaries.
+- [nnU-Net integration](src/mri_segmentation/nnunet/) plans channel contracts, dataset metadata, commands, and binary metrics.
 
-## Scope and limitations
+## Public demonstration
 
-This repository is the reusable engineering layer around the research workflow, not a reproduction of the private study. It does not distribute raw or derived MRI data, manual masks, trained weights, training logs, private reports, or performance claims. N4 correction is treated as an upstream image-preparation step; the public code does not bundle a full bias-correction runtime. The nnU-Net framework, planning, training, and inference remain external runtime operations driven by reviewed commands.
+The CLI demonstrates preprocessing and GMM contracts using an in-memory synthetic volume only:
 
-The package does not infer biological meaning from GMM component numbers. A project-specific mapping must be justified by the corresponding QC and scientific review.
+    python -m venv .venv
+    python -m pip install -e .
+    python -m mri_segmentation demo --components 4
 
-## License and provenance
+It does not execute the research pipeline, training, inference, or data export. Local import, build, formatting, link, result-table, and privacy checks were performed before publication; validation artifacts are intentionally not part of the repository.
 
-No license is declared yet. Publication rights and third-party notices must be confirmed before the repository is made public.
+## Data and provenance
+
+No raw research data, masks, posterior volumes, prediction maps, checkpoints, training logs, private reports, or case-level tables are distributed. The selected PNGs are de-identified derived figures for technical documentation, and the CSVs contain aggregate schema or experiment summaries only.
+
+No open-source license is provided. Raw research data are not distributed. Selected de-identified derived figures and aggregate experiment summaries are included for technical documentation.
+
