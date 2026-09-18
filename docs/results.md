@@ -16,7 +16,7 @@ The machine-readable table is [nnunet_variant_summary.csv](results/nnunet_varian
 
 ![Case-level Dice comparison](assets/results/nnunet_case_dice_comparison.png)
 
-![Fold comparison](assets/results/nnunet_fold_comparison.png)
+![Five-fold development comparison](assets/story/development_mean_dice.png)
 
 ## Dataset102 prototype context
 
