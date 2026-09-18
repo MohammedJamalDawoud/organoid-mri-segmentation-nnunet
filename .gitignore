@@ -54,5 +54,13 @@ notebooks/
 *.ipynb
 
 # Explicitly curated public QC panels only
-!docs/assets/project_qc/
-!docs/assets/project_qc/*.png
+!docs/assets/gmm/
+!docs/assets/gmm/*.png
+!docs/assets/preprocessing/
+!docs/assets/preprocessing/*.png
+!docs/assets/results/
+!docs/assets/results/*.png
+
+
+!docs/assets/nnunet/
+!docs/assets/nnunet/*.png

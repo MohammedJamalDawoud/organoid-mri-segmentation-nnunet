@@ -1,6 +1,0 @@
-dataset_name: example_mri_segmentation
-image_suffix: "_0000"
-label_suffix: ""
-require_label: false
-
-# This is a data-free schema example, not a dataset definition.
