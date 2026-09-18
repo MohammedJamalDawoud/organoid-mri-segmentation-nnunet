@@ -1,0 +1,58 @@
+# Data and image formats
+*.nii
+*.nii.gz
+*.nrrd
+*.mha
+*.mhd
+*.dcm
+*.dicom
+*.csv
+*.tsv
+*.npy
+*.npz
+*.h5
+*.hdf5
+
+# Results, media, and model artifacts
+*.png
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+*.pdf
+*.pptx
+*.ckpt
+*.pth
+*.pt
+*.onnx
+*.zip
+*.tar
+*.gz
+outputs/
+results/
+logs/
+figures/
+
+# Local configuration and environments
+.env
+.venv/
+venv/
+env/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/
+
+# Private working material
+private_audit/
+private_build/
+private_cache/
+/data/
+notebooks/
+*.ipynb
+
+# Explicitly curated public QC panels only
+!docs/assets/project_qc/
+!docs/assets/project_qc/*.png
