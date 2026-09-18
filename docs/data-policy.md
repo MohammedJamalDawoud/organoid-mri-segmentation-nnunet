@@ -1,20 +1,18 @@
-﻿# Data policy
+# Data policy
 
-This repository is intentionally data-free with respect to the underlying MRI study.
+This repository contains reusable MRI/GMM/nnU-Net integration code, aggregate experiment summaries, and selected de-identified derived figures.
 
-Included:
+## Excluded
 
-- reusable Python implementation;
-- data-free configuration examples;
-- documentation and architecture diagrams;
-- three curated, de-identified derived QC panels selected to explain the workflow.
+- raw MRI, DICOM, NIfTI, NRRD, MHA, or similar volumes;
+- masks, labels, posterior maps, predictions, checkpoints, and cached arrays;
+- case-level CSV/TSV exports, logs, notebook outputs, and training artifacts;
+- private paths, server names, identifiers, communications, reports, presentations, and thesis material;
+- credentials, tokens, environment folders, and generated build output.
 
-Excluded:
+## Curated figures
 
-- raw and derived NIfTI volumes;
-- manual masks, labels, model weights, checkpoints, logs, and internal reports;
-- subject, animal, case, institution, server, or collaborator identifiers;
-- absolute local/network paths and credentials;
-- the nnU-Net framework itself.
+The PNGs under docs/assets/ are selected derived figures. Internal case titles and source-specific footer text were removed before inclusion. The figures explain the workflow and recorded result-review process; they do not make the underlying research data public.
 
-The curated QC panels are not a substitute for the research dataset and are not presented as a benchmark or performance result. The `.gitignore` provides prevention only; every future addition still requires review.
+No open-source license is provided. Raw research data are not distributed. Selected de-identified derived figures and aggregate experiment summaries are included for technical documentation.
+
