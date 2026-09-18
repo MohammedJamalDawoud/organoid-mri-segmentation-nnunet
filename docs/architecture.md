@@ -45,7 +45,6 @@ The original research runtime remains outside this repository. It includes study
       nnunet/
       reporting/
       config.py
-      provenance.py
       cli.py
 
 The privacy boundary is deliberate: no raw volumes, masks, prediction maps, weights, logs, internal paths, or case identifiers cross into the public tree.

@@ -60,6 +60,8 @@ notebooks/
 !docs/assets/preprocessing/*.png
 !docs/assets/results/
 !docs/assets/results/*.png
+!docs/assets/story/
+!docs/assets/story/*.png
 
 
 !docs/assets/nnunet/
