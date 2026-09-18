@@ -1,0 +1,7 @@
+dataset,role,mri_channel,gmm_prior_channels,components,prior_strategy,label_contract,recorded_status
+Dataset101,baseline,GRE_N4_zscore_minmax_m1p1,background;lowprob_tissue;tissue;fluid,4,K10-to-K4 soft probability priors,background=0;organoid=1,dataset preparation baseline
+Dataset102,corrected_prior_prototype,GRE_N4_zscore_minmax_m1p1,background;lowprob_tissue;tissue;fluid,4,K10-to-K4 sigma-rule corrected priors,background=0;organoid=1,5-epoch CPU prototype
+Dataset103,reference_comparison,GRE_N4_zscore_minmax_m1p1,direct_k4_background_1;direct_k4_background_2_lowprob_uncertain;direct_k4_tissue;direct_k4_fluid,4,direct K4 posterior priors,background=0;organoid=1,5-epoch CPU prototype
+Dataset104,controlled_comparison,GRE_N4_zscore_minmax_m1p1,controlled_k5_component_01;controlled_k5_component_02;controlled_k5_component_03;controlled_k5_component_04;controlled_k5_component_05,5,controlled K5 posterior channels,background=0;organoid=1,5-epoch CPU prototype
+Dataset105,controlled_comparison,GRE_N4_zscore_minmax_m1p1,controlled_k3_component_01;controlled_k3_component_02;controlled_k3_component_03,3,controlled K3 posterior channels,background=0;organoid=1,5-epoch CPU prototype
+

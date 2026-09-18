@@ -1,6 +1,9 @@
-﻿"""Prediction/reference checks used by the project QC workflow."""
+"""Prediction/reference checks used by the project QC workflow."""
+
 from dataclasses import dataclass
+
 import numpy as np
+
 
 @dataclass(frozen=True)
 class BinaryComparison:
@@ -11,7 +14,9 @@ class BinaryComparison:
     false_negative_voxels: int
 
 
-def compare_binary_volumes(prediction: np.ndarray, reference: np.ndarray) -> BinaryComparison:
+def compare_binary_volumes(
+    prediction: np.ndarray, reference: np.ndarray
+) -> BinaryComparison:
     pred = np.asarray(prediction).astype(bool)
     ref = np.asarray(reference).astype(bool)
     if pred.shape != ref.shape:
@@ -30,6 +35,8 @@ def compare_binary_volumes(prediction: np.ndarray, reference: np.ndarray) -> Bin
     )
 
 
-def summarize_prediction(prediction: np.ndarray, reference: np.ndarray) -> dict[str, object]:
+def summarize_prediction(
+    prediction: np.ndarray, reference: np.ndarray
+) -> dict[str, object]:
     """Return JSON-friendly binary comparison metrics."""
     return compare_binary_volumes(prediction, reference).__dict__.copy()

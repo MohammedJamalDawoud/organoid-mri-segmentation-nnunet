@@ -1,13 +1,17 @@
-﻿"""Data-free nnU-Net dataset construction and validation plans."""
-from dataclasses import dataclass
+"""Data-free nnU-Net dataset construction and validation plans."""
+
 import json
+from collections.abc import Mapping, Sequence
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Mapping, Sequence
+
 from .channels import ChannelSpec, default_channel_specs
+
 
 @dataclass(frozen=True)
 class DatasetCase:
     """A caller-owned case with source paths supplied at runtime."""
+
     case_id: str
     channels: Mapping[str, Path]
     label: Path | None = None
@@ -36,12 +40,28 @@ def build_export_plan(
             if not _nifti(source):
                 raise ValueError(f"channel source is not NIfTI: {source}")
             target = root / "imagesTr" / f"{case.case_id}_{spec.index:04d}.nii.gz"
-            plan.append({"case_id": case.case_id, "kind": "image", "channel": f"{spec.index:04d}", "source": str(source), "target": str(target)})
+            plan.append(
+                {
+                    "case_id": case.case_id,
+                    "kind": "image",
+                    "channel": f"{spec.index:04d}",
+                    "source": str(source),
+                    "target": str(target),
+                }
+            )
         if case.label is not None:
             label = Path(case.label)
             if not _nifti(label):
                 raise ValueError(f"label source is not NIfTI: {label}")
-            plan.append({"case_id": case.case_id, "kind": "label", "channel": "label", "source": str(label), "target": str(root / "labelsTr" / f"{case.case_id}.nii.gz")})
+            plan.append(
+                {
+                    "case_id": case.case_id,
+                    "kind": "label",
+                    "channel": "label",
+                    "source": str(label),
+                    "target": str(root / "labelsTr" / f"{case.case_id}.nii.gz"),
+                }
+            )
     return plan
 
 
@@ -64,11 +84,15 @@ def build_dataset_json(
     }
 
 
-def write_dataset_json(path: str | Path, payload: Mapping[str, object], *, overwrite: bool = False) -> Path:
+def write_dataset_json(
+    path: str | Path, payload: Mapping[str, object], *, overwrite: bool = False
+) -> Path:
     """Write metadata with an explicit overwrite guard."""
     target = Path(path)
     if target.exists() and not overwrite:
-        raise FileExistsError(f"refusing to overwrite existing dataset metadata: {target}")
+        raise FileExistsError(
+            f"refusing to overwrite existing dataset metadata: {target}"
+        )
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(dict(payload), indent=2) + "\n", encoding="utf-8")
     return target

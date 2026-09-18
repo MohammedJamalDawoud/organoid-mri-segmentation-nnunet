@@ -1,14 +1,17 @@
-﻿"""Channel contracts for multi-input nnU-Net datasets.
+"""Channel contracts for multi-input nnU-Net datasets.
 
 The project used a normalized GRE/MGE image plus GMM-derived probability
 channels. These names describe the data contract without assigning biological
 meaning to an individual GMM component beyond its documented prior role.
 """
+
 from dataclasses import dataclass
+
 
 @dataclass(frozen=True)
 class ChannelSpec:
     """One nnU-Net channel and its public semantic name."""
+
     index: int
     name: str
     source_key: str
