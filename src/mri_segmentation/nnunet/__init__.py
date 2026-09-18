@@ -1,6 +1,12 @@
 """Public-safe nnU-Net dataset and execution helpers."""
 
-from .channels import ChannelSpec, default_channel_specs
+from .channels import (
+    ChannelSpec,
+    controlled_k3_channel_specs,
+    controlled_k5_channel_specs,
+    default_channel_specs,
+    direct_k4_channel_specs,
+)
 from .commands import plan_predict, plan_preprocess, plan_train
 from .dataset import (
     DatasetCase,
@@ -16,7 +22,10 @@ __all__ = [
     "build_dataset_json",
     "build_export_plan",
     "compare_binary_volumes",
+    "controlled_k3_channel_specs",
+    "controlled_k5_channel_specs",
     "default_channel_specs",
+    "direct_k4_channel_specs",
     "plan_predict",
     "plan_preprocess",
     "plan_train",
