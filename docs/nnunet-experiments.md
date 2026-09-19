@@ -27,9 +27,12 @@ Citation: Isensee, F., Jaeger, P. F., Kohl, S. A. A., Petersen, J., & Maier-Hein
 The module exposes `default_channel_specs()` and `direct_k4_channel_specs()`
 for the documented Dataset103 reference contract, plus explicit
 `controlled_k3_channel_specs()` and `controlled_k5_channel_specs()` factories
-for Dataset105 and Dataset104. The posterior names preserve source-contract
-labels and remain generic; the source experiments do not establish biological
-meanings for individual components.
+for Dataset105 and Dataset104. K3 and K5 posterior channels retain generic
+intensity-component names. Dataset103 direct-K4 preserves the project-specific
+semantic mapping used in that reviewed experiment: `background_1`,
+`background_2_lowprob_uncertain`, `tissue`, and `fluid`. These names are
+contract labels for that experiment, not universally valid biological
+identities for arbitrary GMM components.
 
 ## Result authority
 

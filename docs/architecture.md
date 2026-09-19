@@ -19,13 +19,14 @@ The public package is a focused extraction of the MRI segmentation engineering w
 ## Data flow
 
 1. The caller supplies an MRI array and preprocessing configuration.
-2. Normalization produces the intensity representation required by the GMM branch.
-3. A support mask limits fitting to relevant voxels.
-4. The GMM returns components sorted by mean intensity; posterior columns use the same order.
-5. Posterior vectors are reconstructed into volumes and checked for normalization.
-6. Geometry and labels are checked before a caller constructs an nnU-Net dataset.
-7. The nnU-Net layer generates reviewable metadata and commands; it does not run nnU-Net.
-8. Aggregate metrics and qualitative figures document recorded experiments without exposing case-level material.
+2. The segmentation MRI branch applies z-score followed by min-max normalization.
+3. The GMM branch optionally applies NLM denoising, then applies z-score followed by min-max normalization.
+4. A support mask limits GMM fitting to relevant voxels.
+5. The GMM returns components sorted by mean intensity; posterior columns use the same order.
+6. Posterior vectors are reconstructed into volumes and checked for normalization.
+7. Geometry and labels are checked before a caller constructs an nnU-Net dataset.
+8. The nnU-Net layer generates reviewable metadata and commands; it does not run nnU-Net.
+9. Aggregate metrics and qualitative figures document recorded experiments without exposing case-level material.
 
 ## Separation of concerns
 

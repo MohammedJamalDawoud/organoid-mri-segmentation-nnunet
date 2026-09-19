@@ -22,11 +22,12 @@ This repository contains a public-safe extraction of an MRI segmentation workflo
 ~~~mermaid
 flowchart LR
     A[MGE or GRE MRI] --> B[GRE/N4 preparation]
-    B --> C[Z-score and min-max normalization]
-    C --> D{Optional NLM branch}
-    D --> E[Support mask]
-    E --> F[GMM posterior priors]
-    F --> G[Shape, spacing, affine and label QC]
+    B --> C[Segmentation MRI branch: z-score and min-max]
+    B --> D{Optional NLM for GMM branch}
+    D --> E[GMM z-score and min-max]
+    E --> F[Support mask and GMM posterior priors]
+    C --> G[Shape, spacing, affine and label QC]
+    F --> G
     G --> H[nnU-Net dataset contract]
     H --> I[nnU-Net external planning and training]
     I --> J[Prediction, reference and volume QC]
@@ -36,7 +37,7 @@ The public code keeps pure array computation separate from filesystem integratio
 
 ## MRI preparation
 
-The earliest safely publishable derived input is GRE/N4-standardized MRI; the source project also records an optional NLM-denoised branch. The consolidated figure keeps these stages together so the preparation decision is visible before probabilistic modeling.
+The earliest safely publishable derived input is GRE/N4-standardized MRI. The public pipeline keeps the segmentation MRI branch as z-score followed by min-max normalization, while the GMM branch can apply optional NLM denoising before the same normalization steps.
 
 ![MRI preparation story](docs/assets/story/01_mri_preprocessing_story.png)
 

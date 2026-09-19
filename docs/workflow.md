@@ -10,7 +10,7 @@ The research workflow uses a GRE/N4-derived MRI representation before normalizat
 
 ## 3. Normalization and optional denoising
 
-[normalization.py](../src/mri_segmentation/preprocessing/normalization.py) implements the documented z-score and min-max operations. [denoise.py](../src/mri_segmentation/preprocessing/denoise.py) contains the optional 3D NLM branch. [pipeline.py](../src/mri_segmentation/preprocessing/pipeline.py) makes the order visible and returns the representation consumed by the GMM branch.
+[normalization.py](../src/mri_segmentation/preprocessing/normalization.py) implements the documented z-score and min-max operations. [denoise.py](../src/mri_segmentation/preprocessing/denoise.py) contains the optional 3D NLM branch. [pipeline.py](../src/mri_segmentation/preprocessing/pipeline.py) returns two explicit outputs: the segmentation MRI branch is z-score followed by min-max, while the GMM branch optionally denoises first and then applies z-score followed by min-max.
 
 ## 4. Support mask and GMM branch
 
