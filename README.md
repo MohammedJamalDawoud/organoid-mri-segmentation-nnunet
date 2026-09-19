@@ -1,6 +1,6 @@
 # Organoid MRI Segmentation with GMM Priors and nnU-Net
 
-This repository contains a data-free extraction of an MRI segmentation workflow built around GRE/N4 preparation, GMM-derived probability priors, explicit geometry and label QC, and nnU-Net v2 dataset integration. It presents the engineering path from MRI representation to controlled development evaluation.
+This repository contains a public-safe extraction of an MRI segmentation workflow built around GRE/N4 preparation, GMM-derived probability priors, explicit geometry and label QC, and nnU-Net v2 integration. No raw research data are distributed; selected de-identified derived figures and aggregate experiment summaries are included for technical documentation.
 
 [Architecture](docs/architecture.md) · [Workflow](docs/workflow.md) · [GMM experiments](docs/gmm-experiments.md) · [nnU-Net experiments](docs/nnunet-experiments.md) · [Results](docs/results.md) · [Data policy](docs/data-policy.md)
 
@@ -92,6 +92,14 @@ The CLI demonstrates preprocessing and GMM contracts using an in-memory syntheti
     python -m mri_segmentation demo --components 4
 
 It does not execute the research pipeline, training, inference, or data export. Validation is performed privately; validation artifacts are intentionally not part of the repository.
+
+## nnU-Net framework and attribution
+
+The original project used the third-party nnU-Net v2 framework for model planning, training, and inference. nnU-Net is developed and maintained by the Medical Image Computing Division at DKFZ / MIC-DKFZ and the Helmholtz Imaging Applied Computer Vision Lab. The official implementation is [MIC-DKFZ/nnUNet](https://github.com/MIC-DKFZ/nnUNet).
+
+This repository does not redistribute or reimplement nnU-Net. It contains the project-specific engineering around that external runtime: MRI preprocessing interfaces, GMM-derived prior/channel design, Dataset101--105 schema construction, experiment integration and command planning, QC, aggregate result analysis, and de-identified result visualization.
+
+Citation: Isensee, F., Jaeger, P. F., Kohl, S. A. A., Petersen, J., & Maier-Hein, K. H. (2021). *nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation.* Nature Methods, 18(2), 203--211.
 
 ## Data and provenance
 

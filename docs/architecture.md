@@ -12,7 +12,7 @@ The public package is a focused extraction of the MRI segmentation engineering w
 | [labels/](../src/mri_segmentation/labels/) | Inspect label values and apply explicit caller-selected transforms | Pure arrays |
 | [geometry/compatibility.py](../src/mri_segmentation/geometry/compatibility.py) | Compare shape, spacing, origin, direction and affine | Metadata only |
 | [qc/](../src/mri_segmentation/qc/) | Build overlays and preflight checks | Pure arrays and metadata |
-| [nnunet/](../src/mri_segmentation/nnunet/) | Channel contracts, dataset metadata, command planning and binary metrics | Integration boundary; nnU-Net is external |
+| [nnunet/](../src/mri_segmentation/nnunet/) | Channel contracts, dataset metadata, command planning and binary metrics | Integration boundary; [external nnU-Net v2 runtime](https://github.com/MIC-DKFZ/nnUNet) |
 | [reporting/metrics.py](../src/mri_segmentation/reporting/metrics.py) | Aggregate scalar metrics using population standard deviation | Public-safe aggregate summaries |
 | [cli.py](../src/mri_segmentation/cli.py) | Deterministic in-memory preprocessing/GMM demonstration | No research files |
 

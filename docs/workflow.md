@@ -26,6 +26,8 @@ The reason for stable ordering is contract integrity: channel 1 must refer to th
 
 [channels.py](../src/mri_segmentation/nnunet/channels.py) defines the normalized MRI plus prior-channel contract. [dataset.py](../src/mri_segmentation/nnunet/dataset.py) plans filenames and dataset metadata without copying data. [commands.py](../src/mri_segmentation/nnunet/commands.py) returns reviewable external commands. No training or inference is started by the package.
 
+The runtime itself is external: the original workflow used [nnU-Net v2](https://github.com/MIC-DKFZ/nnUNet) for planning, training, and inference, while this repository provides the project-specific contracts and command planning around it.
+
 ## 7. Evaluation branch
 
 [qc.py](../src/mri_segmentation/nnunet/qc.py) computes binary prediction/reference metrics. [reporting/metrics.py](../src/mri_segmentation/reporting/metrics.py) summarizes scalar values with population standard deviation. The public result tables contain aggregate values from recorded 5-epoch CPU development comparisons; private per-case tables remain excluded.

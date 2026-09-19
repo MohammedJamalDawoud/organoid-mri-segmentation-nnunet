@@ -18,6 +18,12 @@ The public-safe schema is recorded in [dataset_channel_contracts.csv](results/da
 
 The [nnU-Net module](../src/mri_segmentation/nnunet/) provides channel specifications, filename planning, dataset metadata generation, reviewable plan/train/predict commands, and binary prediction/reference metrics. nnU-Net v2 itself remains external. These helpers do not start planning, training, inference, or data export.
 
+## Framework attribution
+
+The segmentation framework used in the original project was the external nnU-Net v2 implementation maintained by the Medical Image Computing Division at DKFZ / MIC-DKFZ and the Helmholtz Imaging Applied Computer Vision Lab: [official repository](https://github.com/MIC-DKFZ/nnUNet). This repository provides project-specific preprocessing, GMM-prior/channel contracts, dataset integration, command planning, QC, and aggregate reporting; it does not redistribute nnU-Net source.
+
+Citation: Isensee, F., Jaeger, P. F., Kohl, S. A. A., Petersen, J., & Maier-Hein, K. H. (2021). *nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation.* Nature Methods, 18(2), 203--211.
+
 The module exposes `default_channel_specs()` and `direct_k4_channel_specs()`
 for the documented Dataset103 reference contract, plus explicit
 `controlled_k3_channel_specs()` and `controlled_k5_channel_specs()` factories
