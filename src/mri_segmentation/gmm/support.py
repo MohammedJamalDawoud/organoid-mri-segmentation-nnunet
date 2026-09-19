@@ -33,6 +33,8 @@ def build_support_mask(
     array = np.asarray(data, dtype=np.float32)
     if array.ndim != 3:
         raise ValueError("expected a three-dimensional volume")
+    if not np.isfinite(array).all():
+        raise ValueError("support input contains non-finite values")
 
     finite = np.isfinite(array)
     low = finite & (array <= config.support_low_threshold)
@@ -52,6 +54,8 @@ def build_support_mask(
         support = finite.copy()
         fraction = float(np.mean(support))
         fallback_used = True
+    if not np.any(support):
+        raise ValueError("support mask is empty")
 
     return SupportMaskResult(
         mask=support,
