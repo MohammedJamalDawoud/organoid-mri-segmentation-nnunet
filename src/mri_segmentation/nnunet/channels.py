@@ -26,10 +26,14 @@ def direct_k4_channel_specs() -> tuple[ChannelSpec, ...]:
     """Return the documented Dataset103 direct-K4 channel contract."""
     return (
         ChannelSpec(0, "normalized_mri", "mri"),
-        ChannelSpec(1, "gmm_background_prior", "gmm_background"),
-        ChannelSpec(2, "gmm_low_probability_tissue_prior", "gmm_lowprob_tissue"),
-        ChannelSpec(3, "gmm_tissue_prior", "gmm_tissue"),
-        ChannelSpec(4, "gmm_fluid_prior", "gmm_fluid"),
+        ChannelSpec(1, "direct_k4_background_1_prior", "direct_k4_background_1"),
+        ChannelSpec(
+            2,
+            "direct_k4_background_2_lowprob_uncertain_prior",
+            "direct_k4_background_2_lowprob_uncertain",
+        ),
+        ChannelSpec(3, "direct_k4_tissue_prior", "direct_k4_tissue"),
+        ChannelSpec(4, "direct_k4_fluid_prior", "direct_k4_fluid"),
     )
 
 
@@ -41,11 +45,21 @@ def controlled_k5_channel_specs() -> tuple[ChannelSpec, ...]:
     """
     return (
         ChannelSpec(0, "normalized_mri", "mri"),
-        ChannelSpec(1, "gmm_component_1_prior", "gmm_component_1"),
-        ChannelSpec(2, "gmm_component_2_prior", "gmm_component_2"),
-        ChannelSpec(3, "gmm_component_3_prior", "gmm_component_3"),
-        ChannelSpec(4, "gmm_component_4_prior", "gmm_component_4"),
-        ChannelSpec(5, "gmm_component_5_prior", "gmm_component_5"),
+        ChannelSpec(
+            1, "controlled_k5_component_01_prior", "controlled_k5_component_01"
+        ),
+        ChannelSpec(
+            2, "controlled_k5_component_02_prior", "controlled_k5_component_02"
+        ),
+        ChannelSpec(
+            3, "controlled_k5_component_03_prior", "controlled_k5_component_03"
+        ),
+        ChannelSpec(
+            4, "controlled_k5_component_04_prior", "controlled_k5_component_04"
+        ),
+        ChannelSpec(
+            5, "controlled_k5_component_05_prior", "controlled_k5_component_05"
+        ),
     )
 
 
@@ -53,7 +67,13 @@ def controlled_k3_channel_specs() -> tuple[ChannelSpec, ...]:
     """Return the documented Dataset105 controlled-K3 contract."""
     return (
         ChannelSpec(0, "normalized_mri", "mri"),
-        ChannelSpec(1, "gmm_component_1_prior", "gmm_component_1"),
-        ChannelSpec(2, "gmm_component_2_prior", "gmm_component_2"),
-        ChannelSpec(3, "gmm_component_3_prior", "gmm_component_3"),
+        ChannelSpec(
+            1, "controlled_k3_component_01_prior", "controlled_k3_component_01"
+        ),
+        ChannelSpec(
+            2, "controlled_k3_component_02_prior", "controlled_k3_component_02"
+        ),
+        ChannelSpec(
+            3, "controlled_k3_component_03_prior", "controlled_k3_component_03"
+        ),
     )
