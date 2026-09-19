@@ -2,7 +2,7 @@
 
 ## Scope and authority
 
-The values below are transcribed from the project’s Task26, Task31, Task35, Task36, and Task37 summaries. The current result trees are all nnUNetTrainer_5epochs__nnUNetPlans__3d_fullres, so these are 5-epoch CPU development comparisons. No later full-training result tree was identified for Dataset101–105.
+The values below are transcribed from recorded project evaluation summaries. The current result trees are all nnUNetTrainer_5epochs__nnUNetPlans__3d_fullres, so these are 5-epoch CPU development comparisons. No later full-training result tree was identified for Dataset101-105.
 
 ## Controlled comparison
 
@@ -20,7 +20,7 @@ The machine-readable table is [nnunet_variant_summary.csv](results/nnunet_varian
 
 ## Dataset102 prototype context
 
-Task26 recorded the Dataset102 sigma-rule prototype as a 64-case, five-fold, 5-epoch CPU run. Its mean Dice was 0.836541 and median Dice was 0.952301. Five predictions were empty, nine cases had Dice below 0.5, and nine were below 0.8. The recorded verdict was pass with warnings and review required.
+The recorded Dataset102 sigma-rule prototype was a 64-case, five-fold, 5-epoch CPU run. Its mean Dice was 0.836541 and median Dice was 0.952301. Five predictions were empty, nine cases had Dice below 0.5, and nine were below 0.8. The recorded verdict was pass with warnings and review required.
 
 This is useful engineering evidence: the prior branch and QC process were revised before the direct-K4 and controlled K3/K5 comparisons. The Dataset102 aggregate is kept separately in [dataset102_prototype_summary.csv](results/dataset102_prototype_summary.csv).
 

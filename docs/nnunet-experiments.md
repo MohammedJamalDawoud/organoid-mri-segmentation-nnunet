@@ -18,11 +18,12 @@ The public-safe schema is recorded in [dataset_channel_contracts.csv](results/da
 
 The [nnU-Net module](../src/mri_segmentation/nnunet/) provides channel specifications, filename planning, dataset metadata generation, reviewable plan/train/predict commands, and binary prediction/reference metrics. nnU-Net v2 itself remains external. These helpers do not start planning, training, inference, or data export.
 
-The module exposes `default_channel_specs()` for the documented Dataset103
-reference contract plus explicit `controlled_k3_channel_specs()` and
-`controlled_k5_channel_specs()` factories for Dataset105 and Dataset104. The
-posterior names remain generic component names because the source experiments
-do not establish biological meanings for individual components.
+The module exposes `default_channel_specs()` and `direct_k4_channel_specs()`
+for the documented Dataset103 reference contract, plus explicit
+`controlled_k3_channel_specs()` and `controlled_k5_channel_specs()` factories
+for Dataset105 and Dataset104. The posterior names preserve source-contract
+labels and remain generic; the source experiments do not establish biological
+meanings for individual components.
 
 ## Result authority
 

@@ -1,3 +1,3 @@
 dataset,variant,stage,trainer,epochs,fold_count,case_count,channels,mean_dice,median_dice,min_dice,max_dice,empty_predictions,dice_lt_0_8,dice_lt_0_5,recorded_verdict
-Dataset102,sigma_rule_k10_to_k4,corrected_prior_prototype,nnUNetTrainer,5,5,64,5,0.836541,0.952301,0.000000,0.978210,5,9,9,TASK_26_DATASET102_CPU_5FOLD_TRAINING_PASS_WITH_WARNINGS_REVIEW
+Dataset102,sigma_rule_k10_to_k4,corrected_prior_prototype,nnUNetTrainer,5,5,64,5,0.836541,0.952301,0.000000,0.978210,5,9,9,pass_with_warnings_review_required
 

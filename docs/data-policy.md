@@ -5,7 +5,8 @@ This repository contains reusable MRI/GMM/nnU-Net integration code, aggregate ex
 ## Excluded
 
 - raw MRI, DICOM, NIfTI, NRRD, MHA, or similar volumes;
-- masks, labels, posterior maps, predictions, checkpoints, and cached arrays;
+- machine-readable masks and labels, posterior probability volumes, prediction
+  volumes, checkpoints, and cached arrays;
 - case-level CSV/TSV exports, logs, notebook outputs, and training artifacts;
 - private paths, server names, identifiers, communications, reports, presentations, and thesis material;
 - credentials, tokens, environment folders, and generated build output.

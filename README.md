@@ -60,8 +60,6 @@ The public integration layer is described in [channels.py](src/mri_segmentation/
 
 ## Controlled development comparison
 
-![Controlled development comparison](docs/assets/story/04_development_comparison_story.png)
-
 The documented evaluation numbers are explicitly 5-epoch CPU development comparisons from the recorded project runs. They are not final model performance or an external benchmark.
 
 | Dataset | Stage | GMM strategy | Channels | Training status |
