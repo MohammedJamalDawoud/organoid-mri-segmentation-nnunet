@@ -2,7 +2,7 @@
 
 ## Scope and authority
 
-The values below are transcribed from recorded project evaluation summaries. The current result trees are all nnUNetTrainer_5epochs__nnUNetPlans__3d_fullres, so these are 5-epoch CPU development comparisons. No later full-training result tree was identified for Dataset101-105.
+The values below are transcribed from recorded project evaluation summaries. The current result trees are all nnUNetTrainer_5epochs__nnUNetPlans__3d_fullres, so the CSV trainer field uses the exact recorded trainer class nnUNetTrainer_5epochs and the epochs field is kept as a separate readable value. No later full-training result tree was identified for Dataset101-105.
 
 ## Controlled comparison
 

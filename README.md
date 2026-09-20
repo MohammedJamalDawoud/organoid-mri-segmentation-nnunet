@@ -70,7 +70,7 @@ The documented evaluation numbers are explicitly 5-epoch CPU development compari
 | Dataset | Stage | GMM strategy | Channels | Training status |
 | --- | --- | --- | ---: | --- |
 | Dataset101 | Baseline | K10-to-K4 soft priors | 5 | 5-epoch CPU prototype with warnings |
-| Dataset102 | Corrected-prior prototype | K10-to-K4 sigma-rule priors | 5 | 5-epoch CPU prototype |
+| Dataset102 | Corrected-prior prototype | K10-to-K4 sigma-rule priors | 5 | 5-epoch CPU prototype with warnings/review required |
 | Dataset103 | Reference comparison | Direct K4 | 5 | 5-epoch CPU prototype |
 | Dataset104 | Controlled comparison | K5 | 6 | 5-epoch CPU prototype |
 | Dataset105 | Controlled comparison | K3 | 4 | 5-epoch CPU prototype |

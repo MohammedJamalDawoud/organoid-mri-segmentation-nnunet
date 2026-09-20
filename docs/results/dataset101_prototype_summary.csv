@@ -1,2 +1,2 @@
 dataset,variant,stage,trainer,epochs,fold_count,case_count,channels,mean_dice,median_dice,min_dice,max_dice,empty_predictions,dice_lt_0_8,dice_lt_0_5,recorded_verdict
-Dataset101,standard_k10_to_k4,baseline_prototype,nnUNetTrainer,5,5,64,5,0.820633,0.944007,0.000000,0.970666,5,9,9,pass_with_warnings_review_required
+Dataset101,standard_k10_to_k4,baseline_prototype,nnUNetTrainer_5epochs,5,5,64,5,0.820633,0.944007,0.000000,0.970666,5,9,9,pass_with_warnings_review_required

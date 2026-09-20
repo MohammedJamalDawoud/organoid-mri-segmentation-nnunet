@@ -5,7 +5,7 @@
 | Dataset | Role | MRI + prior channels | Verified prior strategy | Recorded status |
 | --- | --- | ---: | --- | --- |
 | Dataset101 | Baseline | 5 | K10-to-K4 soft probability priors | 5-epoch CPU prototype with warnings |
-| Dataset102 | Corrected-prior prototype | 5 | K10-to-K4 sigma-rule priors | 5-epoch CPU prototype |
+| Dataset102 | Corrected-prior prototype | 5 | K10-to-K4 sigma-rule priors | 5-epoch CPU prototype with warnings/review required |
 | Dataset103 | Reference comparison | 5 | Direct K4 posterior priors | 5-epoch CPU prototype |
 | Dataset104 | Controlled comparison | 6 | Controlled K5 posterior channels | 5-epoch CPU prototype |
 | Dataset105 | Controlled comparison | 4 | Controlled K3 posterior channels | 5-epoch CPU prototype |
