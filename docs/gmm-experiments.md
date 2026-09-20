@@ -17,5 +17,10 @@ These maps represent intensity populations, not automatically named anatomical c
 
 The implementation is in [fit.py](../src/mri_segmentation/gmm/fit.py), [support.py](../src/mri_segmentation/gmm/support.py), [posterior.py](../src/mri_segmentation/gmm/posterior.py), and [volumes.py](../src/mri_segmentation/gmm/volumes.py). The public functions are fit_intensity_gmm, build_support_mask, validate_posteriors, reconstruct_probability_volume, and reconstruct_hard_labels.
 
-K10 remains separate from the controlled nnU-Net comparison because it was used for exploratory decomposition rather than a documented trained dataset.
+## Public implementation fidelity
 
+The public `fit_intensity_gmm()` helper is a generalized reusable implementation of the baseline mechanics: deterministic sampling, scikit-learn GaussianMixture fitting, stable ascending-mean component ordering, and consistent reordering of means, statistics, posterior channels, and hard labels.
+
+The recorded private K3/K4/K5 experiments used reviewed controlled initialization and configuration details preserved in the private project for scientific provenance. This repository does not claim to reproduce those controlled research runs byte-for-byte. It publishes the reusable mechanics and documented channel contracts while keeping private orchestration and provenance material out of the public tree.
+
+K10 remains separate from the controlled nnU-Net comparison because it was used for exploratory decomposition rather than a documented trained dataset.

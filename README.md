@@ -2,7 +2,7 @@
 
 This repository contains a public-safe extraction of an MRI segmentation workflow built around GRE/N4 preparation, GMM-derived probability priors, explicit geometry and label QC, and nnU-Net v2 integration. No raw research data are distributed; selected de-identified derived figures and aggregate experiment summaries are included for technical documentation.
 
-[Architecture](docs/architecture.md) · [Workflow](docs/workflow.md) · [GMM experiments](docs/gmm-experiments.md) · [nnU-Net experiments](docs/nnunet-experiments.md) · [Results](docs/results.md) · [Data policy](docs/data-policy.md)
+[Architecture](docs/architecture.md) - [Workflow](docs/workflow.md) - [Datasets](docs/datasets.md) - [GMM experiments](docs/gmm-experiments.md) - [nnU-Net experiments](docs/nnunet-experiments.md) - [Results](docs/results.md) - [Data policy](docs/data-policy.md)
 
 ![Controlled development comparison](docs/assets/story/04_development_comparison_story.png)
 
@@ -59,13 +59,17 @@ Posterior channels become explicit model inputs. The controlled contracts map K3
 
 The public integration layer is described in [channels.py](src/mri_segmentation/nnunet/channels.py), [dataset.py](src/mri_segmentation/nnunet/dataset.py), and [commands.py](src/mri_segmentation/nnunet/commands.py).
 
+## Dataset overview
+
+The private organoid workflow contains 159 subject/session processing case units, while Dataset101-105 are five-fold, 64-case supervised development datasets. Detailed public-safe dataset contracts, aggregate dimensions, and distribution limits are documented in [Datasets](docs/datasets.md).
+
 ## Controlled development comparison
 
 The documented evaluation numbers are explicitly 5-epoch CPU development comparisons from the recorded project runs. They are not final model performance or an external benchmark.
 
 | Dataset | Stage | GMM strategy | Channels | Training status |
 | --- | --- | --- | ---: | --- |
-| Dataset101 | Baseline | K10-to-K4 soft priors | 5 | Dataset preparation baseline |
+| Dataset101 | Baseline | K10-to-K4 soft priors | 5 | 5-epoch CPU prototype with warnings |
 | Dataset102 | Corrected-prior prototype | K10-to-K4 sigma-rule priors | 5 | 5-epoch CPU prototype |
 | Dataset103 | Reference comparison | Direct K4 | 5 | 5-epoch CPU prototype |
 | Dataset104 | Controlled comparison | K5 | 6 | 5-epoch CPU prototype |
@@ -86,7 +90,7 @@ Detailed individual QC panels and result plots remain available in [GMM experime
 
 ## Public demonstration
 
-The CLI demonstrates preprocessing and GMM contracts using an in-memory synthetic volume only:
+The CLI demonstrates preprocessing and GMM contracts using a synthetic array volume only:
 
     python -m venv .venv
     python -m pip install -e .

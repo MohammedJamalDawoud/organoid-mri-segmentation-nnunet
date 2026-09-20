@@ -12,6 +12,8 @@ The research workflow uses a GRE/N4-derived MRI representation before normalizat
 
 [normalization.py](../src/mri_segmentation/preprocessing/normalization.py) implements the documented z-score and min-max operations. [denoise.py](../src/mri_segmentation/preprocessing/denoise.py) contains the optional 3D NLM branch. [pipeline.py](../src/mri_segmentation/preprocessing/pipeline.py) returns two explicit outputs: the segmentation MRI branch is z-score followed by min-max, while the GMM branch optionally denoises first and then applies z-score followed by min-max.
 
+The z-score operation is fitted on non-zero voxels and preserves exact-zero locations. The following min-max stage maps the non-zero intensity range to `[-1, 1]` and initializes the output to `-1`, so exact-zero locations are represented as `-1` in that normalized array. This is an implementation and data-representation convention, not a universal biological or anatomical statement that every zero-valued voxel in arbitrary MRI data is background.
+
 ## 4. Support mask and GMM branch
 
 [support.py](../src/mri_segmentation/gmm/support.py) selects the fitting region. [fit.py](../src/mri_segmentation/gmm/fit.py) fits a one-dimensional GMM with deterministic sampling and sorts components by ascending mean intensity. [posterior.py](../src/mri_segmentation/gmm/posterior.py) validates row sums, and [volumes.py](../src/mri_segmentation/gmm/volumes.py) reconstructs posterior and hard-label volumes.
@@ -35,4 +37,3 @@ The runtime itself is external: the original workflow used [nnU-Net v2](https://
 ## 8. Why the branches are separate
 
 Preprocessing creates a consistent intensity representation. The GMM branch adds interpretable probability priors. Geometry and label checks protect the dataset contract. The nnU-Net branch consumes the resulting channel specification, while the evaluation branch combines overlap metrics with qualitative overlays and volume agreement.
-

@@ -15,7 +15,7 @@ from .preprocessing.pipeline import preprocess_volume
 
 
 def _synthetic_volume(seed: int) -> np.ndarray:
-    """Create a deterministic in-memory volume for the demonstration."""
+    """Create a deterministic synthetic array volume for the demonstration."""
     generator = np.random.default_rng(seed)
     output = np.zeros((24, 24, 24), dtype=np.float32)
     values = np.concatenate(
@@ -30,7 +30,7 @@ def _synthetic_volume(seed: int) -> np.ndarray:
 
 
 def run_demo(seed: int, components: int) -> dict[str, object]:
-    """Run the preprocessing and GMM pipeline entirely in memory."""
+    """Run the preprocessing and GMM pipeline entirely on a synthetic array."""
     if components < 2:
         raise ValueError("components must be at least two")
     volume = _synthetic_volume(seed)
@@ -55,7 +55,7 @@ def run_demo(seed: int, components: int) -> dict[str, object]:
     validate_posteriors(result.posteriors)
 
     return {
-        "mode": "synthetic_in_memory_demo",
+        "mode": "synthetic_array_demo",
         "shape": list(volume.shape),
         "support_voxels": int(support.mask.sum()),
         "components": components,
@@ -76,7 +76,7 @@ def build_parser() -> argparse.ArgumentParser:
     subcommands = parser.add_subparsers(dest="command", required=True)
     demo = subcommands.add_parser(
         "demo",
-        help="run a deterministic synthetic in-memory preprocessing and GMM demo",
+        help="run a deterministic synthetic-array preprocessing and GMM demo",
     )
     demo.add_argument("--seed", type=int, default=7)
     demo.add_argument("--components", type=int, default=3)

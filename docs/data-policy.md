@@ -1,6 +1,6 @@
 # Data policy
 
-This repository contains reusable MRI/GMM/nnU-Net integration code, aggregate experiment summaries, and selected de-identified derived figures.
+This repository contains reusable MRI/GMM/nnU-Net integration code, aggregate experiment summaries, and selected de-identified derived figures. Public-safe dataset scope and aggregate counts are documented in [Datasets](datasets.md).
 
 ## Excluded
 
@@ -16,4 +16,3 @@ This repository contains reusable MRI/GMM/nnU-Net integration code, aggregate ex
 The PNGs under docs/assets/ are selected derived figures. Internal case titles and source-specific footer text were removed before inclusion. The figures explain the workflow and recorded result-review process; they do not make the underlying research data public.
 
 No open-source license is provided. Raw research data are not distributed. Selected de-identified derived figures and aggregate experiment summaries are included for technical documentation.
-

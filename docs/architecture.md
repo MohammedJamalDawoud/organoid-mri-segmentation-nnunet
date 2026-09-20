@@ -1,6 +1,6 @@
 # Architecture
 
-The public package is a focused extraction of the MRI segmentation engineering work. It exposes reusable array and metadata operations while leaving study-specific orchestration, data locations, and nnU-Net execution outside the repository.
+The public package is a focused extraction of the MRI segmentation engineering work. Dataset contracts and aggregate scale are documented in [Datasets](datasets.md). It exposes reusable array and metadata operations while leaving study-specific orchestration, data locations, and nnU-Net execution outside the repository.
 
 ## Module responsibilities
 
@@ -14,7 +14,7 @@ The public package is a focused extraction of the MRI segmentation engineering w
 | [qc/](../src/mri_segmentation/qc/) | Build overlays and preflight checks | Pure arrays and metadata |
 | [nnunet/](../src/mri_segmentation/nnunet/) | Channel contracts, dataset metadata, command planning and binary metrics | Integration boundary; [external nnU-Net v2 runtime](https://github.com/MIC-DKFZ/nnUNet) |
 | [reporting/metrics.py](../src/mri_segmentation/reporting/metrics.py) | Aggregate scalar metrics using population standard deviation | Public-safe aggregate summaries |
-| [cli.py](../src/mri_segmentation/cli.py) | Deterministic in-memory preprocessing/GMM demonstration | No research files |
+| [cli.py](../src/mri_segmentation/cli.py) | Deterministic synthetic-array preprocessing/GMM demonstration | No research files |
 
 ## Data flow
 
@@ -49,4 +49,3 @@ The original research runtime remains outside this repository. It includes study
       cli.py
 
 The privacy boundary is deliberate: no raw volumes, masks, prediction maps, weights, logs, internal paths, or case identifiers cross into the public tree.
-

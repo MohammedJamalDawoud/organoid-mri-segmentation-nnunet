@@ -6,17 +6,22 @@ The values below are transcribed from recorded project evaluation summaries. The
 
 ## Controlled comparison
 
-| Dataset | Variant | Trainer/run status | Folds | Cases | Channels | Mean Dice | Median Dice | Min–max Dice | Empty predictions | Dice < 0.8 |
+| Dataset | Variant | Trainer/run status | Folds | Cases | Channels | Mean Dice | Median Dice | Min-max Dice | Empty predictions | Dice < 0.8 |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Dataset103 | Direct K4 | 5-epoch CPU prototype | 5 | 64 | 5 | 0.952008 | 0.961213 | 0.850298–0.981930 | 0 | 0 |
-| Dataset104 | Controlled K5 | 5-epoch CPU prototype | 5 | 64 | 6 | 0.938955 | 0.954818 | 0.804697–0.980014 | 0 | 0 |
-| Dataset105 | Controlled K3 | 5-epoch CPU prototype | 5 | 64 | 4 | 0.949086 | 0.957588 | 0.855819–0.981868 | 0 | 0 |
+| Dataset101 | Standard K10-to-K4 | 5-epoch CPU prototype with warnings | 5 | 64 | 5 | 0.820633 | 0.944007 | 0.000000-0.970666 | 5 | 9 |
+| Dataset103 | Direct K4 | 5-epoch CPU prototype | 5 | 64 | 5 | 0.952008 | 0.961213 | 0.850298-0.981930 | 0 | 0 |
+| Dataset104 | Controlled K5 | 5-epoch CPU prototype | 5 | 64 | 6 | 0.938955 | 0.954818 | 0.804697-0.980014 | 0 | 0 |
+| Dataset105 | Controlled K3 | 5-epoch CPU prototype | 5 | 64 | 4 | 0.949086 | 0.957588 | 0.855819-0.981868 | 0 | 0 |
 
-The machine-readable table is [nnunet_variant_summary.csv](results/nnunet_variant_summary.csv).
+The main comparison table is [nnunet_variant_summary.csv](results/nnunet_variant_summary.csv). Dataset101 and Dataset102 prototype summaries are kept separately in [dataset101_prototype_summary.csv](results/dataset101_prototype_summary.csv) and [dataset102_prototype_summary.csv](results/dataset102_prototype_summary.csv) because both require warning context.
 
 ![Case-level Dice comparison](assets/results/nnunet_case_dice_comparison.png)
 
 ![Five-fold development comparison](assets/story/development_mean_dice.png)
+
+## Dataset101 and Dataset102 prototype context
+
+The recorded Dataset101 standard K10-to-K4 prototype was a 64-case, five-fold, 5-epoch CPU run. Its mean Dice was 0.820633 and median Dice was 0.944007. Five predictions were empty and nine cases had Dice below 0.8. The result is included as baseline engineering evidence, not as final performance.
 
 ## Dataset102 prototype context
 
@@ -37,4 +42,3 @@ The overlay panel shows why overlap metrics should be read with spatial review. 
 ## Limitations
 
 These values summarize recorded project-internal development runs. They are not clinical performance, production accuracy, or an external benchmark. The public repository does not include the underlying images, masks, predictions, folds, or logs, so the tables document recorded evidence rather than a rerunnable result package. K10 is exploratory and is not included as a direct nnU-Net performance result.
-
