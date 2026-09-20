@@ -27,19 +27,37 @@ class NiftiVolume:
         """Convert captured NIfTI metadata into the package geometry contract."""
         from ..geometry.compatibility import Geometry
 
-        spatial = self.affine[:3, :3]
+        affine = np.asarray(self.affine, dtype=np.float64)
         spacing = np.asarray(self.spacing[:3], dtype=np.float64)
         if self.data.ndim != 3 or np.any(spacing <= 0):
             raise ValueError(
                 "expected a three-dimensional volume with positive spacing"
             )
-        direction = spatial / spacing[np.newaxis, :]
+        if affine.shape != (4, 4) or not np.isfinite(affine).all():
+            raise ValueError("affine must be a finite 4x4 matrix")
+
+        spatial = affine[:3, :3]
+        determinant = float(np.linalg.det(spatial))
+        if abs(determinant) <= 1e-8:
+            raise ValueError("affine spatial transform is singular or degenerate")
+
+        column_norms = np.linalg.norm(spatial, axis=0)
+        if np.any(column_norms <= 1e-8):
+            raise ValueError("affine contains a degenerate spatial axis")
+        if not np.allclose(column_norms, spacing, atol=1e-5, rtol=1e-4):
+            raise ValueError("affine spatial scale does not match voxel spacing")
+
+        direction = spatial / column_norms[np.newaxis, :]
+        gram = direction.T @ direction
+        if not np.allclose(gram, np.eye(3), atol=1e-5, rtol=1e-5):
+            raise ValueError("affine contains shear unsupported by Geometry")
+
         return Geometry(
             shape=self.shape,
             spacing=tuple(float(value) for value in spacing),
-            origin=tuple(float(value) for value in self.affine[:3, 3]),
+            origin=tuple(float(value) for value in affine[:3, 3]),
             direction=tuple(float(value) for value in direction.ravel()),
-            affine=self.affine.copy(),
+            affine=affine.copy(),
         )
 
 

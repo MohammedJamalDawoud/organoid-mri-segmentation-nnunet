@@ -100,6 +100,8 @@ def build_dataset_json(
         raise ValueError("name must be non-empty")
     if not cases:
         raise ValueError("at least one case is required")
+    if len({case.case_id for case in cases}) != len(cases):
+        raise ValueError("case_id values must be unique")
     label_map = dict(labels or {"background": 0, "foreground": 1})
     if not label_map or set(label_map.values()) != set(range(len(label_map))):
         raise ValueError("labels must use contiguous integer values starting at zero")
